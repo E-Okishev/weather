@@ -1,16 +1,16 @@
 import { getCurentDateTime } from "./utils.js"
 
 export const renderWidgetToday = (widget) => {
-  const curentDateTime = getCurentDateTime();
+  const { month, year, dayOfMonth, dayOfWeek, hours, minutes } = getCurentDateTime();
 
   widget.insertAdjacentHTML(
     'beforeend',
     `
     <div class="widget__today">
         <div class="widget__date-block">
-          <p class="widget__date">${curentDateTime.dayOfMonth} ${curentDateTime.month} ${curentDateTime.year}</p>
-          <p class="widget__time">${curentDateTime.hours}:${curentDateTime.minutes}</p>
-          <p class="widget__day">${curentDateTime.dayOfWeek}</p>
+          <p class="widget__date">${dayOfMonth} ${month} ${year}</p>
+          <p class="widget__time">${hours}:${minutes}</p>
+          <p class="widget__day">${dayOfWeek}</p>
         </div>
         <div class="widget__icon">
           <img class="widget__img" src="./icon/01d.svg" alt="Погода">
