@@ -1,5 +1,5 @@
 import { fetchForecast, fetchWeather } from "./APIservice.js";
-import { renderWidgetForecast, renderWidgetOther, renderWidgetToday } from "./render.js";
+import { renderWidgetForecast, renderWidgetOther, renderWidgetToday, showError } from "./render.js";
 
 
 export const startWidget = async () => {
@@ -25,4 +25,3 @@ export const startWidget = async () => {
   }
   return widget;
 }
-

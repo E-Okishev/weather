@@ -1,4 +1,4 @@
-import { atmosphericPressure, dewPoint, getCurentDateTime, getWeatherForecastData, getWindDirection } from "./utils.js"
+import { atmosphericPressure, dewPoint, getCurentDateTime, getWeatherForecastData } from "./utils.js"
 
 export const renderWidgetToday = (widget, data) => {
   const { weather, name, main: { temp, feels_like } } = data;
@@ -41,7 +41,7 @@ export const renderWidgetOther = (widget, data) => {
             <div class="widget__wind">
           <p class="widget__wind-title">Ветер</p>
           <p class="widget__wind-speed">${data.wind.speed} м/с</p>
-          <p class="widget__wind-text">${getWindDirection(data.wind.deg)}</p>
+          <p class="widget__wind-text" style='transform: rotate(${data.wind.deg}deg)'>🡣</p>
 
         </div>
         <div class="widget__humidity">
@@ -59,7 +59,6 @@ export const renderWidgetOther = (widget, data) => {
 }
 
 export const renderWidgetForecast = (widget, data) => {
-  console.log(data);
 
   const widgetForecast = document.createElement('ul')
   widgetForecast.className = 'widget__forecast';
@@ -67,20 +66,19 @@ export const renderWidgetForecast = (widget, data) => {
 
   const forecastData = getWeatherForecastData(data);
 
-  const item = forecastData.map((item) => {
+  const items = forecastData.map((item) => {
     const widgetDayItem = document.createElement('li')
     widgetDayItem.className = 'widget__day-item';
-
     widgetDayItem.insertAdjacentHTML('beforeend', `
-      <p class="widget__day-text">${item.dayOfWeek}</p>
-      <img class="widget__day-img" src="./icon/${item.weatherIcon}.svg" alt="Погода">
-      <p class="widget__day-temp">${(item.minTemp - 273.15).toFixed(1)}°/${(item.maxTemp - 273.15).toFixed(1)}°</p>
+    <p class="widget__day-text">${item.dayOfWeek}</p>
+    <img class="widget__day-img" src="./icon/${item.weatherIcon}.svg" alt="Погода">
+    <p class="widget__day-temp">${(item.minTemp - 273.15).toFixed(1)}°/${(item.maxTemp - 273.15).toFixed(1)}°</p>
     `)
 
     return widgetDayItem;
   })
 
-  widgetForecast.append(...item); 
+  widgetForecast.append(...items); 
 }
 
 export const showError = (widget, error) => {

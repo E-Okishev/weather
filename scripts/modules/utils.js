@@ -39,19 +39,14 @@ export const getCurentDateTime = () => {
   return { month, year, dayOfMonth, dayOfWeek, hours, minutes }
 }
 
-export const getWindDirection = (deg) => {
-  const directions = ['🡡', '🡤', '🡠', '🡧', '🡣', '🡦', '🡢', '🡥'];
-  const i = Math.round(deg / 45) % 8;
-  return directions[i]
-}
-
 export const atmosphericPressure = (pressure) => (pressure * 0.750063755419211).toFixed(2);
 export const dewPoint = (temp, humidity) => (temp - (1 - humidity / 100) / 0.05).toFixed(1);
 export const getWeatherForecastData = (data) => {
   const forecast = data.list.filter(
     (item) =>
       new Date(item.dt_txt).getHours() === 12 &&
-      new Date(item.dt_txt).getDate() > new Date().getDate()
+      new Date(item.dt_txt).getDate() > new Date().getDate() &&
+      new Date(item.dt_txt).getDate() < new Date().getDate() + 5,
   )
 
   const forecastData = forecast.map((item) => {
@@ -78,7 +73,9 @@ export const getWeatherForecastData = (data) => {
       if (tempDate.getDate() === date.getDate()) {
         if (temp < minTemp) {
           minTemp = temp;
-        } else {
+        }
+
+        if (temp > maxTemp) {
           maxTemp = temp;
         }
       }
