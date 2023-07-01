@@ -27,7 +27,7 @@ export const getCurentDateTime = () => {
   ];
 
   const date = new Date();
-
+  
   const dayOfMonth = date.getDate()
   const month = months[date.getMonth()];
   const year = date.getFullYear();
